@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -79,5 +80,22 @@ class BMICalculatorTest {
 		
 		//then
 		assertNull(coderWorstBMI);
+	}
+	
+	@Test
+	void should_ReturnCorrectBMIScoresArray_When_CoderListIsNotEmpty() {
+		//given
+		List<Coder> coderList = new ArrayList<Coder>();
+		coderList.add(new Coder(1.80, 60));
+		coderList.add(new Coder(1.82, 98));
+		coderList.add(new Coder(1.82, 64.7));
+		
+		double[] expectedValues = {18.52, 29.59, 19.53};
+		
+		//when
+		double[] BMIScores = BMICalculator.getBMIScores(coderList);
+		
+		//then 
+		assertArrayEquals(expectedValues, BMIScores);
 	}
 }
