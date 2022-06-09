@@ -13,6 +13,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class BMICalculatorTest {
 
@@ -29,11 +31,12 @@ class BMICalculatorTest {
 	}
 
 	
-	@Test
-	void should_RetrunFalse_When_DietNotRecommended() {
+	@ParameterizedTest
+	@ValueSource(doubles = {70.0,98.0,58.0,75.0})
+	void should_RetrunFalse_When_DietNotRecommended(Double coderWeight) {
 	
 		//given 
-		double weight = 50.0;
+		double weight = coderWeight;
 		double height = 1.92;
 		//when
 		boolean recommended = BMICalculator.isDietRecommended(weight, height);
