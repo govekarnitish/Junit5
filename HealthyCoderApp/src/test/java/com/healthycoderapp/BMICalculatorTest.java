@@ -2,7 +2,12 @@ package com.healthycoderapp;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -44,5 +49,22 @@ class BMICalculatorTest {
 		Executable executable = () -> BMICalculator.isDietRecommended(weight, height);
 		//then 
 		assertThrows(ArithmeticException.class, executable);
+	}
+	
+	@Test
+	void should_ReturnCoderWithWorstBMI_When_CoderListIsNotEmpty() {
+		//given 
+		List<Coder>  coderList = new ArrayList<Coder>();
+		coderList.add(new Coder(1.80, 60));
+		coderList.add(new Coder(1.82, 98));
+		coderList.add(new Coder(1.83, 64.7));
+		
+		//when
+		Coder coderWorstBMI = BMICalculator.findCoderWithWorstBMI(coderList);
+		
+		//then
+		assertAll( 
+		()->assertEquals(1.82, coderWorstBMI.getHeight()),
+		()->assertEquals(98, coderWorstBMI.getWeight()));
 	}
 }
